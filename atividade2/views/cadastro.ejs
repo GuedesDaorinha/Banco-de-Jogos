@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Cadastro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+<%- include('partials/header') %>
+<div class="container-fluid mt-2">
+<h1>Cadastro de Jogo</h1>
+<form action="/cadastrar" method="POST">
+    <div class="col-md-3 fs-3">
+        <div class="mb-3">
+            <label class="form-label">Título do Jogo:</label>
+            <input type="text" name="titulo" class="form-control" placeholder = Titulo required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Plataforma:</label>
+            <input type="text" name="plataforma" class="form-control" placeholder = Plataforma required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Status:</label>
+            <select name="status" class="form-select" placeholder= Status required>
+                <option value="Jogando e Adorando">Jogando e Adorando</option>
+                <option value="Jogando">Jogando</option>
+                <option value="Finalizado">Finalizado</option>
+                <option value="Abandonado">Abandonado</option>
+                <option value="Não Foi Jogado">Não Foi Jogado</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Capa do jogo(URL):</label>
+            <input type="text" name="capa_url" class="form-control" placeholder = "URL da capa">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Nota:</label>
+            <i class="bi bi-star" data-value="1"></i>
+            <i class="bi bi-star" data-value="2"></i>
+            <i class="bi bi-star" data-value="3"></i>
+            <i class="bi bi-star" data-value="4"></i>
+            <i class="bi bi-star" data-value="5"></i>
+        </div>
+        <input type="hidden" name="nota" id="nota" value="0" required>
+        <button type="submit" class="btn btn-outline-primary btn-lg">Salvar</button>
+    </div>
+</form>
+</div>
+<script>
+const estrelas = document.querySelectorAll('.bi-star'); //pega um elemento disponivel da página. ex: h1,classe...
+const notainput = document.getElementById('nota'); //pego o id da nota(estrelinhas).
+    estrelas.forEach(estrela =>{
+        estrela.addEventListener('click',() => {
+          const value = estrela.dataset.value;
+
+        notainput.value = value;
+
+        estrelas.forEach(s => {
+            if (Number(s.dataset.value) <= value) {
+                s.classList.remove('bi-star');
+                s.classList.add('bi-star-fill');
+            } else {
+                s.classList.remove('bi-star-fill');
+                s.classList.add('bi-star');
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>
+<%- include('partials/footer') %>

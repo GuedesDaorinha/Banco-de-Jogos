@@ -1,0 +1,67 @@
+<%- include('partials/header') %>
+
+<div class="container mt-4">
+
+    <h1 class="text-center mb-4">Meu Cofre de Jogos</h1>
+
+    <% if (jogos.length === 0) { %>
+        <div class="alert alert-info text-center">
+            Nenhum jogo cadastrado ainda.
+        </div>
+    <% } %>
+
+    <div class="row">
+        <% jogos.forEach(jogo => { %>
+
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow">
+                    <% if (jogo.capa_url) { %>
+                        <img
+                            src="<%= jogo.capa_url %>"
+                            class="card-img-top"
+                            alt="<%= jogo.titulo %>"
+                            style="height: 350px; object-fit: cover;"
+                        >
+
+                    <% } else { %>
+                        <img
+                            src="https://via.placeholder.com/300x350?text=Sem+Capa"
+                            class="card-img-top"
+                            alt="Sem capa"
+                        >
+                    <% } %>
+
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= jogo.titulo %>
+                        </h5>
+
+                        <p class="card-text">
+                            <strong>Plataforma:</strong>
+                            <%= jogo.plataforma %>
+                        </p>
+
+                        <p class="card-text">
+                            <strong>Status:</strong>
+                            <%= jogo.status %>
+                        </p>
+
+                        <p class="card-text">
+                            <strong>Nota:</strong>
+                            <%= jogo.nota %>/5 ⭐
+                        </p>
+                        <a href="/deletar/<%= jogo.id %>"
+                        class="btn btn-danger">
+                            Excluir
+                        </a>                        
+                    </div>
+
+                </div>
+            </div>
+
+        <% }) %>
+    </div>
+
+</div>
+
+<%- include('partials/footer') %>
